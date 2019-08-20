@@ -2,6 +2,7 @@ version: '3'
 services:
   plex:
     image: linuxserver/plex
+    container_name: plex
     network_mode: host
     environment:
       - PGID=1000
@@ -10,16 +11,31 @@ services:
     volumes:
       - ./plex/config:/config:rw
       - ./plex/transcode:/transcode:rw
-      - ./media/downloads:/data/tvshows:rw
-      - ./media/downloads:/data/movies:rw
+      - ./media/downloads/tvshows:/data/tvshows:rw
+      - ./media/downloads/movies:/data/movies:rw
+  radarr:
+    image: linuxserver/radarr
+    container_name: radarr
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=America/Sao_Paulo
+    volumes:
+      - ./radarr/config:/config
+      - ./media/downloads/movies:/movies:rw
+      - ./media/downloads:/downloads:rw
+    ports:
+      - 7878:7878
+    restart: unless-stopped
   sonarr:
     image: linuxserver/sonarr
+    container_name: sonarr
     ports:
       - 8989:8989
     volumes:
       - ./sonarr/config:/config:rw
       - ./sonarr/tv:/tv:rw
-      - ./media/downloads:/downloads:rw
+      - ./media/downloads/tvshows:/downloads:rw
       - /etc/localtime:/etc/localtime:ro
     environment:
       - TZ=America/Sao_Paulo
@@ -30,6 +46,7 @@ services:
       - transmission
   jackett:
     image: linuxserver/jackett
+    container_name: jackett
     ports:
       - 9117:9117
     volumes:
