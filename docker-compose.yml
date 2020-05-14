@@ -23,7 +23,7 @@ services:
     volumes:
       - ./radarr/config:/config
       - ./media/downloads/movies:/movies:rw
-      - ./media/downloads:/downloads:rw
+      - ./media/downloads/movies:/downloads:rw
     ports:
       - 7878:7878
     restart: unless-stopped
@@ -34,16 +34,26 @@ services:
       - 8989:8989
     volumes:
       - ./sonarr/config:/config:rw
-      - ./sonarr/tv:/tv:rw
+      - ./media/downloads/tvshows:/tv:rw
       - ./media/downloads/tvshows:/downloads:rw
-      - /etc/localtime:/etc/localtime:ro
     environment:
       - TZ=America/Sao_Paulo
       - PGID=1000
       - PUID=1000
-    links:
-      - jackett
-      - transmission
+  bazarr:
+    image: linuxserver/bazarr
+    container_name: bazarr
+    ports:
+      - 6767:6767
+    volumes:
+      - ./bazarr/config:/config:rw
+      - ./media/downloads/tvshows:/tv:rw
+      - ./media/downloads/movies:/movies:rw
+    environment:
+      - TZ=America/Sao_Paulo
+      - PUID=1000
+      - PGID=1000
+      - UMASK_SET=022
   jackett:
     image: linuxserver/jackett
     container_name: jackett
@@ -57,19 +67,19 @@ services:
       - TZ=America/Sao_Paulo
       - PGID=1000
       - PUID=1000
-  transmission:
-    image: linuxserver/transmission
-    container_name: transmission
+  qbittorrent:
+    image: linuxserver/qbittorrent
+    container_name: qbittorrent
     environment:
       - PUID=1000
       - PGID=1000
       - TZ=America/Sao_Paulo
+      - UMASK_SET=022
+      - WEBUI_PORT=8080
     volumes:
-      - ./transmission/config:/config:rw
+      - ./qbittorrent/config:/config:rw
       - ./media/downloads:/downloads:rw
-      - ./torrents:/watch:rw
     ports:
-      - 9091:9091
-      - 51413:51413
-      - 51413:51413/udp
-    restart: unless-stopped
+      - 6881:6881
+      - 6881:6881/udp
+      - 8080:8080
