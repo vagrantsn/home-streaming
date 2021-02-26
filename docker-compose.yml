@@ -17,11 +17,17 @@ services:
       - ./media/downloads:/downloads:rw
     ports:
       - 7878:7878
+    links:
+      - jackett
+      - qbittorrent
 
   sonarr:
     image: linuxserver/sonarr
     ports:
       - 8989:8989
+    links:
+      - jackett
+      - qbittorrent
     volumes:
       - ./sonarr/config:/config:rw
       - ./media/tvshows:/tv:rw
