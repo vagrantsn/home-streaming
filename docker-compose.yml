@@ -6,15 +6,15 @@ services:
     volumes:
       - ./plex/config:/config:rw
       - ./plex/transcode:/transcode:rw
-      - ./media/downloads/tvshows:/data/tvshows:rw
-      - ./media/downloads/movies:/data/movies:rw
+      - ./media/tvshows:/data/tvshows:rw
+      - ./media/movies:/data/movies:rw
 
   radarr:
     image: linuxserver/radarr
     volumes:
       - ./radarr/config:/config
-      - ./media/downloads/movies:/movies:rw
-      - ./media/downloads/movies:/downloads:rw
+      - ./media/movies:/movies:rw
+      - ./media/downloads:/downloads:rw
     ports:
       - 7878:7878
 
@@ -24,8 +24,8 @@ services:
       - 8989:8989
     volumes:
       - ./sonarr/config:/config:rw
-      - ./media/downloads/tvshows:/tv:rw
-      - ./media/downloads/tvshows:/downloads:rw
+      - ./media/tvshows:/tv:rw
+      - ./media/downloads:/downloads:rw
 
   bazarr:
     image: linuxserver/bazarr
@@ -33,8 +33,8 @@ services:
       - 6767:6767
     volumes:
       - ./bazarr/config:/config:rw
-      - ./media/downloads/tvshows:/tv:rw
-      - ./media/downloads/movies:/movies:rw
+      - ./media/tvshows:/tv:rw
+      - ./media/movies:/movies:rw
 
   jackett:
     image: linuxserver/jackett
