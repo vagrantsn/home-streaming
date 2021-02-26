@@ -3,3 +3,7 @@
 # Radarr
 radarr/config/*
 !radarr/config/radarr.db
+
+# Sonarr
+sonarr/config/*
+!sonarr/config/nzbdrone.db
