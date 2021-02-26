@@ -15,3 +15,12 @@ bazarr/
 jackett/config/Jackett/*
 !jackett/config/Jackett/Indexers
 !jackett/config/Jackett/ServerConfig.json
+
+# Plex
+plex/
+
+# QBittorrent
+qbittorrent/
+
+# Media
+media/
