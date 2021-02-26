@@ -7,3 +7,11 @@ radarr/config/*
 # Sonarr
 sonarr/config/*
 !sonarr/config/nzbdrone.db
+
+# Bazarr
+bazarr/
+
+# Jackett
+jackett/config/Jackett/*
+!jackett/config/Jackett/Indexers
+!jackett/config/Jackett/ServerConfig.json
