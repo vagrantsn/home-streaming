@@ -1,2 +1,5 @@
-*/
 .env
+
+# Radarr
+radarr/config/*
+!radarr/config/radarr.db
