@@ -5,3 +5,7 @@ node_modules/
 
 containers/
 config.yml
+
+media/downloads/*
+media/movies/*
+media/tvshows/*
