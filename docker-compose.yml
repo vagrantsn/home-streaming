@@ -38,19 +38,6 @@ services:
       - ./containers/sonarr:/config:rw
       - ./media:/media:rw
 
-  bazarr:
-    container_name: bazarr
-    image: ghcr.io/linuxserver/bazarr:v1.4.2-ls248
-    env_file: .env
-    dns: 8.8.8.8
-    networks:
-      - mediacenter
-    ports:
-      - 6767:6767
-    volumes:
-      - ./containers/bazarr:/config:rw
-      - ./media:/media:rw
-
   prowlarr:
     container_name: prowlarr
     image: ghcr.io/linuxserver/prowlarr:1.16.2.4435-ls66
