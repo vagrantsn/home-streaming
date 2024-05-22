@@ -5,5 +5,5 @@
     "esModuleInterop": true,
     "moduleResolution": "Bundler"
   },
-  "include": ["scripts/**/*"]
+  "include": ["src/**/*"]
 }
