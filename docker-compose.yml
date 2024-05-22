@@ -3,7 +3,7 @@ version: '3'
 services:
   plex:
     container_name: plex
-    image: lscr.io/linuxserver/plex:latest
+    image: ghcr.io/linuxserver/plex
     env_file: .env
     network_mode: host
     environment:
@@ -48,7 +48,7 @@ services:
 
   prowlarr:
     container_name: prowlarr
-    image: lscr.io/linuxserver/prowlarr:latest
+    image: ghcr.io/linuxserver/prowlarr
     env_file: .env
     dns: 8.8.8.8
     volumes:
@@ -58,7 +58,7 @@ services:
 
   qbittorrent:
     container_name: qbittorrent
-    image: ghcr.io/linuxserver/qbittorrent:libtorrentv1-release-4.6.4_v1.2.19-ls22@sha256:5c8f04ab0c493682bb961dfe51e07e10a6f1527e34fe5619498b2a9087713423
+    image: ghcr.io/linuxserver/qbittorrent
     dns: 8.8.8.8
     env_file: .env
     environment:
