@@ -3,7 +3,7 @@ import transmission from './services/transmission'
 import sonarr from './services/sonarr'
 import radarr from './services/radarr'
 
-import * as start from './services/start'
+import { setup } from './setup'
 
 import { TaskGroupsController, groupedTasks } from './task'
 
@@ -19,8 +19,10 @@ const subscribeTasks = (group: TaskGroupsController) => {
 }
 
 const run = async () => {
+  await setup()
+
   const tasks = groupedTasks([
-    { name: 'start', tasks: [start] },
+    { name: 'start', tasks: [] },
     { name: 'clean', tasks: [] },
     { name: 'setup', tasks: [] },
     { name: 'post-setup', tasks: [] },
