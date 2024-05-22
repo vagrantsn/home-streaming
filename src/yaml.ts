@@ -2,12 +2,10 @@ import * as yaml from 'yaml'
 import path from 'path'
 import fs from 'fs'
 
-import { DownloadClientConfig } from './tasks/prowlarr/types/yaml'
+import { Prowlarr } from './tasks/prowlarr/types'
 
 type YAMLConfig = {
-  prowlarr: {
-    downloadClients: DownloadClientConfig[]
-  }
+  prowlarr: Prowlarr
 }
 
 export const read = (): YAMLConfig => {

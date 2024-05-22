@@ -8,8 +8,22 @@ type ServiceParams = {
   headers?: Record<string, unknown>;
 };
 
-const request = async <Response>(path: string | URL | Request, init: RequestInit) => {
-  const response = await fetch(path, init);
+export type RequestOptions = RequestInit & {
+  host?: string;
+  internal?: boolean;
+};
+
+export class ApiError extends Error {
+  body: Record<string, any>
+
+  constructor(message: string, body: Record<string, any>) {
+    super(message)
+    this.body = body
+  }
+}
+
+const request = async <Response>(path: string | URL | Request, options: RequestOptions) => {
+  const response = await fetch(`${options.host}${path}`, options);
 
   const isJsonResponse = response.headers.get('Content-Type') === 'application/json'
 
@@ -19,7 +33,10 @@ const request = async <Response>(path: string | URL | Request, init: RequestInit
   }
 
   if (!response.ok) {
-    throw new Error(`${init.method} ${path} ${response.status} ${response.statusText} ${JSON.stringify(body)}`)
+    throw new ApiError(
+      `${options.method} ${path} ${response.status} ${response.statusText} ${JSON.stringify(body)}`,
+      body
+    )
   }
 
   return body;
@@ -35,16 +52,18 @@ const defaultHeaders = () => {
 }
 
 const requests = {
- get: <Response = any>({ path, headers = {} }: ServiceParams) =>
+ get: <Response = any>({ path, headers = {} }: ServiceParams, options?: RequestOptions) =>
   request<Response>(path, {
+    ...options,
     method: "GET",
     headers: {
       ...defaultHeaders(),
       ...headers,
     },
   }),
- post: <Response = any>({ path, body = {}, headers = {} }: ServiceParams) =>
+ post: <Response = any>({ path, body = {}, headers = {} }: ServiceParams, options?: RequestOptions) =>
   request<Response>(path, {
+    ...options,
     method: "POST",
     body: JSON.stringify(body),
     headers: {
@@ -52,8 +71,9 @@ const requests = {
       ...headers,
     },
   }),
- delete: <Response = any>({ path, body = {}, headers = {} }: ServiceParams) =>
+ delete: <Response = any>({ path, body = {}, headers = {} }: ServiceParams, options?: RequestOptions) =>
   request<Response>(path, {
+    ...options,
     method: "DELETE",
     body: JSON.stringify(body),
     headers: {

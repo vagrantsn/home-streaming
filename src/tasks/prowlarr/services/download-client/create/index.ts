@@ -1,5 +1,5 @@
-import request from "../../../../../request";
-import { BASE } from "../../api";
+import request, { RequestOptions } from "../../../../../request";
+import { host } from "../../api";
 import { fieldsFromYaml } from "../../formatters";
 
 import { DownloadClientResource } from "../types";
@@ -23,7 +23,7 @@ const defaults: Partial<CreateDownloadClientPayload> = {
   tags: [],
 };
 
-export const create = (body: CreateDownloadClientPayload) => {
+export const create = (body: CreateDownloadClientPayload, options?: RequestOptions) => {
   const defaultedBody: DownloadClientResource = {
     ...defaults,
     ...body,
@@ -33,7 +33,10 @@ export const create = (body: CreateDownloadClientPayload) => {
   };
 
   return request.post({
-    path: `${BASE}downloadclient`,
+    path: `downloadclient`,
     body: defaultedBody,
+  }, {
+    ...options,
+    host: host,
   });
 };

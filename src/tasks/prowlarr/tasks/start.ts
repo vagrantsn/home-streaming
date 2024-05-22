@@ -1,5 +1,4 @@
-import * as downloadClients from "./download-clients";
-import * as services from '../../services';
+import * as prowlarr from '../services';
 
 const retryUntilSuccess = async (
   request: () => Promise<any>,
@@ -26,7 +25,5 @@ const retryUntilSuccess = async (
 }
 
 export const run = async () => {
-  await retryUntilSuccess(services.health.status)
-
-  Promise.all([downloadClients.run()])
+  await retryUntilSuccess(() => prowlarr.health.status())
 };

@@ -58,6 +58,8 @@ services:
     dns: 8.8.8.8
     depends_on:
       - qbittorrent
+      - sonarr
+      - radarr
     networks:
       - mediacenter
     ports:

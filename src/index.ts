@@ -1,5 +1,7 @@
 import prowlarr from './tasks/prowlarr'
 import qbittorrent from './tasks/qbittorrent'
+import sonarr from './tasks/sonarr'
+
 import * as start from './tasks/start'
 
 import { TaskGroupsController, groupedTasks } from './task'
@@ -7,6 +9,7 @@ import { TaskGroupsController, groupedTasks } from './task'
 const containers = {
   prowlarr,
   qbittorrent,
+  sonarr,
 }
 
 const subscribeTasks = (group: TaskGroupsController) => {
@@ -15,18 +18,10 @@ const subscribeTasks = (group: TaskGroupsController) => {
 
 const run = async () => {
   const tasks = groupedTasks([
-    {
-      name: 'pre',
-      tasks: [],
-    },
-    {
-      name: 'start',
-      tasks: [start],
-    },
-    {
-      name: 'post',
-      tasks: [],
-    }
+    { name: 'pre', tasks: [] },
+    { name: 'start', tasks: [start] },
+    { name: 'clean', tasks: [] },
+    { name: 'post', tasks: [] }
   ])
 
   subscribeTasks(tasks)

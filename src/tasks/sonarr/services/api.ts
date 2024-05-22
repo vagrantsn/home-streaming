@@ -1,1 +1,1 @@
-export const BASE = 'http://sonarr:8989/api/v3/'
+export const host = 'http://localhost:8989/api/v3/'

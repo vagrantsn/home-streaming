@@ -42,9 +42,8 @@ export const groupedTasks = (initialGroups: TasksGroup[]): TaskGroupsController 
     for (const group of groups) {
       const loader = ora(`[${group.name}] ${clc.cyan('Running')}...`).start()
 
-      const tasks = group.tasks.map(task => task.run())
-
       try {
+        const tasks = group.tasks.map(task => task.run())
         await Promise.all(tasks)
         loader.succeed()
       } catch (error: unknown) {

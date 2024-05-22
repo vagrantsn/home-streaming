@@ -1,5 +1,5 @@
-import requests from "../../../../../request";
-import { BASE } from "../../api";
+import requests, { RequestOptions } from "../../../../../request";
+import { host } from "../../api";
 import { fieldsFromYaml } from "../../formatters";
 import { ApplicationResource } from "../types";
 import { CreateApplicationPayload } from "./types";
@@ -26,7 +26,7 @@ const defaults: Partial<ApplicationResource> = {
   ],
 }
 
-export const create = (body: CreateApplicationPayload) => {
+export const create = (body: CreateApplicationPayload, options?: RequestOptions) => {
   const defaultedBody: ApplicationResource = {
     ...defaults,
     ...body,
@@ -34,7 +34,10 @@ export const create = (body: CreateApplicationPayload) => {
   }
 
   return requests.post({
-    path: `${BASE}applications`,
+    path: `applications`,
     body: defaultedBody,
+  }, {
+    ...options,
+    host: host,
   })
 }

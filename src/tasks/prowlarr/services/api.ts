@@ -1,1 +1,1 @@
-export const BASE = 'http://prowlarr:9696/api/v1/'
+export const host = 'http://localhost:9696/api/v1/'

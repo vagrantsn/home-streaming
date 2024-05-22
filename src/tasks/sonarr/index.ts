@@ -1,10 +1,10 @@
-import { TaskGroupsController } from '../../task'
+import { TaskGroupsController } from "../../task";
 
-import * as preconfig from './tasks/pre-config'
+import * as start from './tasks/start'
 import * as setup from './tasks/setup'
 
 const subscribe = (group: TaskGroupsController) => {
-  group.subscribe('pre', preconfig)
+  group.subscribe('start', start)
   group.subscribe('post', setup)
 }
 

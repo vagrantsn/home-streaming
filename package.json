@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "tsx src/index.ts"
+    "start": "tsx src/index.ts",
+    "clean": "docker-compose down; rm -rf containers"
   },
   "dependencies": {
     "cli-color": "2.0.4",
