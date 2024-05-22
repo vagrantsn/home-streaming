@@ -3,9 +3,12 @@ import path from 'path'
 import { root } from '../../paths'
 
 const paths = {
-  qbittorrent: path.resolve(root, 'containers/qbittorrent'),
-  configFolder: path.resolve(root, 'containers/qbittorrent/config'),
-  configFile: path.resolve(root, 'containers/qbittorrent/qBittorrent.conf'),
+  base: path.resolve(root, 'containers/qbittorrent'),
+  config: {
+    folder: path.resolve(root, 'containers/qbittorrent'),
+    baseFile: path.resolve(root, 'configs/qbittorrent/qBittorrent.conf'),
+    file: path.resolve(root, 'containers/qbittorrent/qBittorrent.conf'),
+  },
 }
 
 export default paths

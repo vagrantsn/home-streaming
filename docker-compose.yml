@@ -22,7 +22,7 @@ services:
     ports:
       - 7878:7878
     volumes:
-      - ./containers/radarr/config:/config
+      - ./containers/radarr:/config
       - ./media:/media:rw
 
   sonarr:
@@ -35,7 +35,7 @@ services:
     ports:
       - 8989:8989
     volumes:
-      - ./containers/sonarr/config:/config:rw
+      - ./containers/sonarr:/config:rw
       - ./media:/media:rw
 
   bazarr:
@@ -48,7 +48,7 @@ services:
     ports:
       - 6767:6767
     volumes:
-      - ./containers/bazarr/config:/config:rw
+      - ./containers/bazarr:/config:rw
       - ./media:/media:rw
 
   prowlarr:
@@ -63,7 +63,7 @@ services:
     ports:
       - 9696:9696
     volumes:
-      - ./containers/prowlarr/config:/config
+      - ./containers/prowlarr:/config
 
   qbittorrent:
     container_name: qbittorrent
@@ -79,7 +79,7 @@ services:
       - 6881:6881/udp
       - 8080:8080
     volumes:
-      - ./containers/qbittorrent/config:/config:rw
+      - ./containers/qbittorrent:/config:rw
       - ./media/downloads:/downloads:rw
 
 networks:
