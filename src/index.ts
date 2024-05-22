@@ -1,6 +1,7 @@
 import prowlarr from './tasks/prowlarr'
 import qbittorrent from './tasks/qbittorrent'
 import sonarr from './tasks/sonarr'
+import radarr from './tasks/radarr'
 
 import * as start from './tasks/start'
 
@@ -10,6 +11,7 @@ const containers = {
   prowlarr,
   qbittorrent,
   sonarr,
+  radarr,
 }
 
 const subscribeTasks = (group: TaskGroupsController) => {
