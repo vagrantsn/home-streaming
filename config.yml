@@ -1,0 +1,10 @@
+prowlarr:
+  downloadClients:
+    - name: qBittorrent
+      implementationName: qBittorrent
+      implementation: QBittorrent
+      configContract: QBittorrentSettings
+      fields:
+        host: qbittorrent
+        port: 8080
+        username: admin

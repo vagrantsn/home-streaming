@@ -1,6 +1,6 @@
-import { post } from "../request";
+import request from "../../request";
 
-import { DownloadClientPayload, DownloadClientResource } from "./types";
+import { DownloadClientPayload, DownloadClientResource } from "../types";
 
 const defaults: Partial<DownloadClientPayload> = {
   categories: [],
@@ -34,7 +34,7 @@ export const create = (body: DownloadClientPayload) => {
     tags: body.tags ?? defaults.tags,
   };
 
-  return post({
+  return request.post({
     path: "downloadclient",
     body: defaultedBody,
   });

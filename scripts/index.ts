@@ -1,19 +1,24 @@
+import { execSync } from 'child_process'
 import clc from 'cli-color'
 import ora from 'ora'
 
 import * as prowlarr from './prowlarr'
+import * as qbittorrent from './qbittorrent'
+
 import { isError } from './errors'
+import { Container } from './types'
 
-const servicesSetup = async () => {
-  const services = {
-    prowlarr
-  }
+const containers: Record<string, Container> = {
+  prowlarr,
+  qbittorrent,
+}
 
-  for (const [name, service] of Object.entries(services)) {
+const containersSetup = async () => {
+  for (const [name, container] of Object.entries(containers)) {
     const loader = ora(`[${name}] ${clc.cyan('Setting up')}...`).start()
 
     try {
-      await service.setup()
+      await container.setup?.()
       loader.succeed()
     } catch (error: unknown) {
       let message = `[${name}] ${clc.red('Setup failed')}`
@@ -27,8 +32,18 @@ const servicesSetup = async () => {
   }
 }
 
+const containersPreconfig = () => {
+  for (const container of Object.values(containers)) {
+    container.preconfig()
+  }
+}
+
 const run = async () => {
-  await servicesSetup()
+  containersPreconfig()
+
+  execSync('docker-compose up -d qbittorrent prowlarr')
+
+  await containersSetup()
 }
 
 run()

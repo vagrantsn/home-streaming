@@ -1,20 +1,22 @@
 import { XMLParser } from 'fast-xml-parser'
 import * as fs from 'fs'
-import path from 'path'
+
+import paths from './paths'
 
 type ProwlarrConfig = {
+  host: string;
   ApiKey: string
 }
 
-const getConfig = (): ProwlarrConfig => {
+export const read = (): ProwlarrConfig => {
   const parser = new XMLParser()
 
-  const configPath = path.resolve(__dirname, '../../prowlarr/config/config.xml')
-  const xmlContent = fs.readFileSync(configPath, { encoding: 'utf-8' })
+  const xmlContent = fs.readFileSync(paths.config.file, { encoding: 'utf-8' })
 
   const parsed: { Config: ProwlarrConfig } = parser.parse(xmlContent)
 
-  return parsed.Config
+  return {
+    ...parsed.Config,
+    host: 'http://localhost:9696',
+  }
 }
-
-export default getConfig()

@@ -8,11 +8,8 @@ type Field = {
   value: string | number | boolean;
 }
 
-export type DownloadClientPayload = Omit<DownloadClientResource, 'fields'> & {
-  fields: Record<string, string | number | boolean>;
-}
-
 export type DownloadClientResource = {
+  id: number;
   categories?: Category[];
   configContract?: string;
   enable: boolean;
