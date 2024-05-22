@@ -5,7 +5,6 @@ const paths = {
   base: path.resolve(root, 'containers/radarr'),
   config: {
     folder: path.resolve(root, 'containers/radarr'),
-    baseFile: path.resolve(root, 'configs/radarr/config.xml'),
     file: path.resolve(root, 'containers/radarr/config.xml'),
   },
 }

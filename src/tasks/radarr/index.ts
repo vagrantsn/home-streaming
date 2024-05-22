@@ -5,7 +5,7 @@ import * as setup from './tasks/setup'
 
 const subscribe = (group: TaskGroupsController) => {
   group.subscribe('start', start)
-  group.subscribe('applications', setup)
+  group.subscribe('setup', setup)
 }
 
 export default subscribe

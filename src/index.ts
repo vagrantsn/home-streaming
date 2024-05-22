@@ -20,11 +20,10 @@ const subscribeTasks = (group: TaskGroupsController) => {
 
 const run = async () => {
   const tasks = groupedTasks([
-    { name: 'pre', tasks: [] },
     { name: 'start', tasks: [start] },
     { name: 'clean', tasks: [] },
-    { name: 'applications', tasks: [] },
-    { name: 'downloaders', tasks: [] }
+    { name: 'setup', tasks: [] },
+    { name: 'post-setup', tasks: [] },
   ])
 
   subscribeTasks(tasks)

@@ -1,0 +1,11 @@
+sonarr:
+  username: <your-username>
+  password: <your-password>
+
+radarr:
+  username: <your-username>
+  password: <your-password>
+
+prowlarr:
+  username: <your-username>
+  password: <your-password>

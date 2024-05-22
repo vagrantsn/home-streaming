@@ -32,7 +32,7 @@ export const groupedTasks = (initialGroups: TasksGroup[]): TaskGroupsController 
     const index = groups.findIndex(({ name }) => name === group)
 
     if (index === -1) {
-      throw new Error(`Could not find tasks group ${group}`)
+      throw new Error(`Could not find tasks group name "${group}"`)
     }
 
     groups[index].tasks.push(task)

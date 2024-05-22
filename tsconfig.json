@@ -7,7 +7,9 @@
     "moduleResolution": "Bundler",
     "paths": {
       "@servarr-api": ["./src/servarr-api/index.ts"],
-      "@servarr-api/*": ["./src/servarr-api/*"]
+      "@servarr-api/*": ["./src/servarr-api/*"],
+      "@tasks/*": ["./src/tasks/*"],
+      "@src/*": ["./src/*"]
     }
   },
   "include": ["src/**/*"]
