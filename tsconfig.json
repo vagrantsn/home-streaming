@@ -1,0 +1,9 @@
+{
+  "compilerOptions": {
+    "module": "ES2015",
+    "noImplicitAny": true,
+    "esModuleInterop": true,
+    "moduleResolution": "Bundler"
+  },
+  "include": ["scripts/**/*"]
+}
