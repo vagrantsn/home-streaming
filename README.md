@@ -1,4 +1,4 @@
-# 🍿 Home Streaming for People in a Hurry
+# 🍿 Home Streaming Done Quick
 
 Want a quick solution to start streaming movies and TV shows under your network with *Arrs services? Got you covered!
 
