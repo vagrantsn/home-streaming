@@ -5,24 +5,25 @@ services:
     container_name: plex
     image: ghcr.io/linuxserver/plex
     env_file: .env
+    dns: 8.8.8.8
     network_mode: host
-    environment:
-      - VERSION=latest
     volumes:
       - ./plex/config:/config:rw
       - ./plex/transcode:/transcode:rw
       - ./media:/media:rw
+    environment:
+      - VERSION=latest
 
   radarr:
     container_name: radarr
     image: ghcr.io/linuxserver/radarr
     env_file: .env
     dns: 8.8.8.8
+    ports:
+      - 7878:7878
     volumes:
       - ./radarr:/config
       - ./media:/media:rw
-    ports:
-      - 7878:7878
 
   sonarr:
     container_name: sonarr
@@ -51,10 +52,10 @@ services:
     image: ghcr.io/linuxserver/prowlarr
     env_file: .env
     dns: 8.8.8.8
-    volumes:
-      - ./prowlarr:/config
     ports:
       - 9696:9696
+    volumes:
+      - ./prowlarr:/config
 
   qbittorrent:
     container_name: qbittorrent
@@ -63,10 +64,10 @@ services:
     env_file: .env
     environment:
       - WEBUI_PORT=8080
-    volumes:
-      - ./qbittorrent:/config:rw
-      - ./media/downloads:/downloads:rw
     ports:
       - 6881:6881
       - 6881:6881/udp
       - 8080:8080
+    volumes:
+      - ./qbittorrent:/config:rw
+      - ./media/downloads:/downloads:rw
