@@ -1,35 +1,37 @@
-import clc from 'cli-color'
-import ora from 'ora'
-
 import prowlarr from './tasks/prowlarr'
 import qbittorrent from './tasks/qbittorrent'
+import * as start from './tasks/start'
 
-import { isError } from './errors'
+import { TaskGroupsController, groupedTasks } from './task'
 
 const containers = {
   prowlarr,
   qbittorrent,
 }
 
+const subscribeTasks = (group: TaskGroupsController) => {
+  Object.values(containers).map(subscribe => subscribe(group))
+}
+
 const run = async () => {
-  const tasks = Object.entries(containers).map(([name, task]) => async () => {
-    const loader = ora(`[${name}] ${clc.cyan('Setting up')}...`).start()
-
-    try {
-      await task()
-      loader.succeed()
-    } catch (error: unknown) {
-      let message = `[${name}] ${clc.red('Setup failed')}`
-
-      if (isError(error)) {
-        message = `[${name}] ${clc.red('Setup failed')} ${error.message}`
-      }
-
-      loader.fail(message)
+  const tasks = groupedTasks([
+    {
+      name: 'pre',
+      tasks: [],
+    },
+    {
+      name: 'start',
+      tasks: [start],
+    },
+    {
+      name: 'post',
+      tasks: [],
     }
-  })
+  ])
 
-  await Promise.all(tasks.map(task => task()))
+  subscribeTasks(tasks)
+
+  await tasks.run()
 }
 
 run()
