@@ -1,0 +1,4 @@
+qbittorrent/*
+!qbittorrent/qBittorrent/
+qbittorrent/qBittorrent/*
+!qbittorrent/qBittorrent/qBittorrent.conf
