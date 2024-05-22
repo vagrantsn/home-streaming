@@ -14,12 +14,14 @@ export type RequestParams<Body = Record<string, any>> = Omit<
 };
 
 export class ApiError extends Error {
+  method: string;
   path: string;
   status: number;
   statusText: string;
   responseBody: Record<string, any>;
 
   constructor(error: {
+    method: string;
     status: number;
     statusText: string;
     path: string;
@@ -28,10 +30,15 @@ export class ApiError extends Error {
   }) {
     super(error.message);
 
+    this.method = error.method;
     this.status = error.status;
     this.statusText = error.statusText;
     this.path = error.path;
     this.responseBody = error.responseBody;
+  }
+
+  toString(): string {
+    return JSON.stringify(this)
   }
 }
 
@@ -94,6 +101,7 @@ const request: RequestHandler = <Response>({
 
     if (!response.ok) {
       throw new ApiError({
+        method,
         status: response.status,
         statusText: response.statusText,
         path: `${host}${path}`,

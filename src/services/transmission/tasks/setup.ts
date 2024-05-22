@@ -31,12 +31,6 @@ const payload: DownloadClientPayload = {
 
 export const run = async () => {
   await Promise.all([
-    prowlarr.downloadclient.removeAll(),
-    sonarr.downloadclient.removeAll(),
-    radarr.downloadclient.removeAll(),
-  ]);
-
-  await Promise.all([
     prowlarr.downloadclient.create({
       body: {
         ...payload,

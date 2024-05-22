@@ -23,7 +23,6 @@ const run = async () => {
 
   const tasks = groupedTasks([
     { name: 'start', tasks: [] },
-    { name: 'clean', tasks: [] },
     { name: 'setup', tasks: [] },
     { name: 'post-setup', tasks: [] },
   ])
