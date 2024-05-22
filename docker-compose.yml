@@ -3,7 +3,7 @@ version: '3'
 services:
   plex:
     container_name: plex
-    image: ghcr.io/linuxserver/plex
+    image: ghcr.io/linuxserver/plex:1.40.2.8395-c67dce28e-ls213
     env_file: .env
     dns: 8.8.8.8
     network_mode: host
@@ -16,7 +16,7 @@ services:
 
   radarr:
     container_name: radarr
-    image: ghcr.io/linuxserver/radarr
+    image: ghcr.io/linuxserver/radarr:5.4.6.8723-ls215
     env_file: .env
     dns: 8.8.8.8
     networks:
@@ -29,7 +29,7 @@ services:
 
   sonarr:
     container_name: sonarr
-    image: ghcr.io/linuxserver/sonarr
+    image: ghcr.io/linuxserver/sonarr:4.0.4.1491-ls236
     env_file: .env
     dns: 8.8.8.8
     networks:
@@ -42,7 +42,7 @@ services:
 
   bazarr:
     container_name: bazarr
-    image: ghcr.io/linuxserver/bazarr
+    image: ghcr.io/linuxserver/bazarr:v1.4.2-ls248
     env_file: .env
     dns: 8.8.8.8
     networks:
@@ -55,7 +55,7 @@ services:
 
   prowlarr:
     container_name: prowlarr
-    image: ghcr.io/linuxserver/prowlarr
+    image: ghcr.io/linuxserver/prowlarr:1.16.2.4435-ls66
     env_file: .env
     dns: 8.8.8.8
     networks:
@@ -67,7 +67,7 @@ services:
 
   qbittorrent:
     container_name: qbittorrent
-    image: ghcr.io/linuxserver/qbittorrent
+    image: ghcr.io/linuxserver/qbittorrent:4.6.4-r1-ls326
     dns: 8.8.8.8
     env_file: .env
     environment:
