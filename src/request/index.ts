@@ -11,13 +11,18 @@ type ServiceParams = {
 const request = async <Response>(path: string | URL | Request, init: RequestInit) => {
   const response = await fetch(path, init);
 
-  const json: Promise<Response> = await response.json()
+  const isJsonResponse = response.headers.get('Content-Type') === 'application/json'
 
-  if (!response.ok) {
-    throw new Error(`${init.method} ${path} ${response.status} ${response.statusText} ${JSON.stringify(json)}`)
+  let body: Response
+  if (isJsonResponse) {
+    body = Promise<Response> = await response.json()
   }
 
-  return json;
+  if (!response.ok) {
+    throw new Error(`${init.method} ${path} ${response.status} ${response.statusText} ${JSON.stringify(body)}`)
+  }
+
+  return body;
 };
 
 const defaultHeaders = () => {
@@ -29,17 +34,9 @@ const defaultHeaders = () => {
   }
 }
 
-const API = () => {
-  const config = read()
-
-  return {
-    base: `${config.host}/api/v1/`
-  }
-}
-
 const requests = {
  get: <Response = any>({ path, headers = {} }: ServiceParams) =>
-  request<Response>(`${API().base}${path}`, {
+  request<Response>(path, {
     method: "GET",
     headers: {
       ...defaultHeaders(),
@@ -47,7 +44,7 @@ const requests = {
     },
   }),
  post: <Response = any>({ path, body = {}, headers = {} }: ServiceParams) =>
-  request<Response>(`${API().base}${path}`, {
+  request<Response>(path, {
     method: "POST",
     body: JSON.stringify(body),
     headers: {
@@ -56,7 +53,7 @@ const requests = {
     },
   }),
  delete: <Response = any>({ path, body = {}, headers = {} }: ServiceParams) =>
-  request<Response>(`${API().base}${path}`, {
+  request<Response>(path, {
     method: "DELETE",
     body: JSON.stringify(body),
     headers: {

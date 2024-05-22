@@ -1,5 +1,6 @@
 import request from "../../../../request";
+import { BASE } from "../api";
 
 export const status = () => request.get({
-  path: 'health'
+  path: `${BASE}health`
 })

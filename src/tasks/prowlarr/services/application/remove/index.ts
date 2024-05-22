@@ -4,6 +4,6 @@ import { BASE } from "../../api";
 import { BulkDeletePayload } from "./types";
 
 export const remove = (body: BulkDeletePayload) => request.delete({
-  path: `${BASE}downloadclient/bulk`,
+  path: `${BASE}applications/bulk`,
   body,
 })
