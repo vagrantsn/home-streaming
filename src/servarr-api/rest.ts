@@ -14,17 +14,41 @@ export type RequestParams<Body = Record<string, any>> = Omit<
 };
 
 export class ApiError extends Error {
-  body: Record<string, any>;
+  path: string;
+  status: number;
+  statusText: string;
+  responseBody: Record<string, any>;
 
-  constructor(message: string, body: Record<string, any>) {
-    super(message);
-    this.body = body;
+  constructor(error: {
+    status: number;
+    statusText: string;
+    path: string;
+    message: string;
+    responseBody: Record<string, any>;
+  }) {
+    super(error.message);
+
+    this.status = error.status;
+    this.statusText = error.statusText;
+    this.path = error.path;
+    this.responseBody = error.responseBody;
   }
 }
 
 const defaultHeaders = {
   "Content-Type": "application/json",
 };
+
+type ErrorResponse = {
+  propertyName: string;
+  errorMessage: string;
+  attemptedValue: string;
+}[];
+
+const isErrorResponse = (response: any): response is ErrorResponse =>
+  Array.isArray(response) &&
+  response.length > 0 &&
+  "errorMessage" in response[0];
 
 export type RequestHandler = <Response = any>(
   params: RequestParams
@@ -52,39 +76,33 @@ const request: RequestHandler = <Response>({
       ...getHeaders(),
     };
 
-    try {
-      const response = await fetch(`${host}${path}`, {
-        ...rest,
-        method,
-        body,
-        headers,
-      });
+    const response = await fetch(`${host}${path}`, {
+      ...rest,
+      method,
+      body,
+      headers,
+    });
 
-      const isJsonResponse = /application\/json/.test(
-        response.headers.get("Content-Type")
-      );
+    const isJsonResponse = /application\/json/.test(
+      response.headers.get("Content-Type")
+    );
 
-      let responseBody: Response;
-      if (isJsonResponse) {
-        responseBody = await response.json();
-      }
-
-      if (!response.ok) {
-        const errorMessage = {
-          path: `${method} ${host}${path}`,
-          status: `${response.status} ${response.statusText}`,
-          body: getBody() || {},
-          headers: getHeaders() || {},
-          response: responseBody || {},
-        };
-
-        throw new ApiError(JSON.stringify(errorMessage), responseBody);
-      }
-
-      return responseBody;
-    } catch (e) {
-      throw new Error(`${e.message}`);
+    let responseBody: Response;
+    if (isJsonResponse) {
+      responseBody = await response.json();
     }
+
+    if (!response.ok) {
+      throw new ApiError({
+        status: response.status,
+        statusText: response.statusText,
+        path: `${host}${path}`,
+        responseBody,
+        message: isErrorResponse(responseBody) ? responseBody[0].errorMessage : JSON.stringify(responseBody),
+      });
+    }
+
+    return responseBody;
   };
 
   return isRetrying

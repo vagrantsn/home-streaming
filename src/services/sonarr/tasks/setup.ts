@@ -48,4 +48,6 @@ export const run = async () => {
       authenticationRequired: 'disabledForLocalAddresses',
     },
   })
+
+  await sonarr.rootFolder.create({ body: { path: '/media/tvshows/' } })
 }

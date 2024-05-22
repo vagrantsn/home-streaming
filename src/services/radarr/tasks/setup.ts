@@ -38,7 +38,7 @@ export const run = async () => {
 
   const hostConfig = await radarr.config.host.details()
 
-  radarr.config.host.update({
+  await radarr.config.host.update({
     body: {
       ...hostConfig,
       username: configs.radarr.username,
@@ -48,4 +48,6 @@ export const run = async () => {
       authenticationRequired: 'disabledForLocalAddresses',
     },
   })
+
+  await radarr.rootFolder.create({ body: { path: '/media/tvshows/' } })
 }
