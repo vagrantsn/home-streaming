@@ -17,8 +17,6 @@ services:
     image: ghcr.io/linuxserver/radarr:5.4.6.8723-ls215
     env_file: .env
     dns: 8.8.8.8
-    networks:
-      - mediacenter
     ports:
       - 7878:7878
     volumes:
@@ -30,8 +28,6 @@ services:
     image: ghcr.io/linuxserver/sonarr:4.0.4.1491-ls236
     env_file: .env
     dns: 8.8.8.8
-    networks:
-      - mediacenter
     ports:
       - 8989:8989
     volumes:
@@ -47,8 +43,6 @@ services:
       - transmission
       - sonarr
       - radarr
-    networks:
-      - mediacenter
     ports:
       - 9696:9696
     volumes:
@@ -61,8 +55,6 @@ services:
     environment:
       - USER=admin
       - PASS=admin
-    networks:
-      - mediacenter
     ports:
       - 9091:9091
       - 51413:51413
@@ -70,10 +62,3 @@ services:
     volumes:
       - ./containers/transmission:/config
       - ./media/downloads:/downloads
-
-networks:
-  mediacenter:
-    ipam:
-      driver: default
-      config:
-        - subnet: "172.16.1.0/24"
