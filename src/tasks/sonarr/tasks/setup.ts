@@ -1,5 +1,7 @@
-import { ApiError } from '../../../request';
-import * as prowlarr from '../../prowlarr/services';
+import { recordToFields } from '@servarr-api/formatters';
+import { ApiError } from '@servarr-api/rest';
+
+import prowlarr from '../../prowlarr/services';
 
 import { read } from '../config'
 
@@ -7,15 +9,18 @@ export const run = async () => {
   const config = read()
 
   try {
-    await prowlarr.application.create({
-      name: 'Sonarr',
-      configContract: 'SonarrSettings',
-      implementation: 'Sonarr',
-      implementationName: 'Sonarr',
-      fields: {
-        baseUrl: 'http://sonarr:8989',
-        prowlarrUrl: 'http://prowlarr:9696',
-        apiKey: config.ApiKey,
+    await prowlarr.applications.create({
+      body: {
+        name: 'Sonarr',
+        configContract: 'SonarrSettings',
+        implementation: 'Sonarr',
+        implementationName: 'Sonarr',
+        syncLevel: 'fullSync',
+        fields: recordToFields({
+          baseUrl: 'http://sonarr:8989',
+          prowlarrUrl: 'http://prowlarr:9696',
+          apiKey: config.ApiKey,
+        }),
       },
     })
   } catch (e) {

@@ -1,6 +1,6 @@
-import * as prowlarr from "../services";
+import prowlarr from '../services'
 
 export const run = async () => Promise.all([
-  prowlarr.downloadClient.removeAll({ retry: true }),
-  prowlarr.application.removeAll({ retry: true }),
+  prowlarr.downloadclient.removeAll({ retry: true }),
+  prowlarr.applications.removeAll({ retry: true }),
 ])

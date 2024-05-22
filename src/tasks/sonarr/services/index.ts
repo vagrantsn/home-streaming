@@ -1,2 +1,10 @@
-export * as health from './health'
-export * as downloadclient from './download-client'
+import { sonarr } from '@servarr-api'
+
+import { read } from '../config'
+
+const client = sonarr({
+  host: 'http://localhost:8989/api/v3/',
+  apiKey: () => read().ApiKey,
+})
+
+export default client

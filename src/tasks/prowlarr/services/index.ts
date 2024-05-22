@@ -1,3 +1,10 @@
-export * as downloadClient from './download-client'
-export * as health from './health'
-export * as application from './application'
+import { prowlarr } from '@servarr-api'
+
+import { read } from '../config'
+
+const client = prowlarr({
+  host: 'http://localhost:9696/api/v1/',
+  apiKey: () => read().ApiKey,
+})
+
+export default client

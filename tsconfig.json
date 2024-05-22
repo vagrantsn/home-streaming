@@ -1,9 +1,14 @@
 {
   "compilerOptions": {
     "module": "ES2015",
+    "target": "ESNext",
     "noImplicitAny": true,
     "esModuleInterop": true,
-    "moduleResolution": "Bundler"
+    "moduleResolution": "Bundler",
+    "paths": {
+      "@servarr-api": ["./src/servarr-api/index.ts"],
+      "@servarr-api/*": ["./src/servarr-api/*"]
+    }
   },
   "include": ["src/**/*"]
 }
