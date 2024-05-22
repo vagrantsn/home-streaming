@@ -19,6 +19,8 @@ services:
     image: ghcr.io/linuxserver/radarr
     env_file: .env
     dns: 8.8.8.8
+    networks:
+      - mediacenter
     ports:
       - 7878:7878
     volumes:
@@ -30,6 +32,8 @@ services:
     image: ghcr.io/linuxserver/sonarr
     env_file: .env
     dns: 8.8.8.8
+    networks:
+      - mediacenter
     ports:
       - 8989:8989
     volumes:
@@ -41,6 +45,8 @@ services:
     image: ghcr.io/linuxserver/bazarr
     env_file: .env
     dns: 8.8.8.8
+    networks:
+      - mediacenter
     ports:
       - 6767:6767
     volumes:
@@ -52,6 +58,8 @@ services:
     image: ghcr.io/linuxserver/prowlarr
     env_file: .env
     dns: 8.8.8.8
+    networks:
+      - mediacenter
     ports:
       - 9696:9696
     volumes:
@@ -64,6 +72,8 @@ services:
     env_file: .env
     environment:
       - WEBUI_PORT=8080
+    networks:
+      - mediacenter
     ports:
       - 6881:6881
       - 6881:6881/udp
@@ -71,3 +81,10 @@ services:
     volumes:
       - ./qbittorrent/config:/config:rw
       - ./media/downloads:/downloads:rw
+
+networks:
+  mediacenter:
+    ipam:
+      driver: default
+      config:
+        - subnet: "172.16.1.0/24"
