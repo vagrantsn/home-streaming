@@ -1,58 +1,65 @@
 version: '3'
 services:
   plex:
-    image: linuxserver/plex
+    container_name: plex
+    image: lscr.io/linuxserver/plex:latest
+    env_file: .env
     network_mode: host
+    environment:
+      - VERSION=latest
     volumes:
       - ./plex/config:/config:rw
       - ./plex/transcode:/transcode:rw
-      - ./media/tvshows:/data/tvshows:rw
-      - ./media/movies:/data/movies:rw
+      - ./media:/media:rw
 
   radarr:
-    image: linuxserver/radarr
+    container_name: radarr
+    image: ghcr.io/linuxserver/radarr
+    env_file: .env
+    dns: 8.8.8.8
     volumes:
       - ./radarr/config:/config
-      - ./media/movies:/movies:rw
-      - ./media/downloads:/downloads:rw
+      - ./media:/media:rw
     ports:
       - 7878:7878
-    links:
-      - jackett
-      - qbittorrent
 
   sonarr:
-    image: linuxserver/sonarr
+    container_name: sonarr
+    image: ghcr.io/linuxserver/sonarr
+    env_file: .env
+    dns: 8.8.8.8
     ports:
       - 8989:8989
-    links:
-      - jackett
-      - qbittorrent
     volumes:
       - ./sonarr/config:/config:rw
-      - ./media/tvshows:/tv:rw
-      - ./media/downloads:/downloads:rw
+      - ./media:/media:rw
 
   bazarr:
-    image: linuxserver/bazarr
+    container_name: bazarr
+    image: ghcr.io/linuxserver/bazarr
+    env_file: .env
+    dns: 8.8.8.8
     ports:
       - 6767:6767
     volumes:
       - ./bazarr/config:/config:rw
-      - ./media/tvshows:/tv:rw
-      - ./media/movies:/movies:rw
+      - ./media:/media:rw
 
-  jackett:
-    image: linuxserver/jackett
-    ports:
-      - 9117:9117
+  prowlarr:
+    container_name: prowlarr
+    image: lscr.io/linuxserver/prowlarr:latest
+    env_file: .env
+    dns: 8.8.8.8
     volumes:
-      - ./media/downloads:/downloads:rw
-      - ./jackett/config:/config:rw
-      - /etc/localtime:/etc/localtime:ro
+      - ./prowlarr:/config
+    ports:
+      - 9696:9696
 
   qbittorrent:
-    image: linuxserver/qbittorrent
+    container_name: qbittorrent
+    image: ghcr.io/linuxserver/qbittorrent
+    dns: 8.8.8.8
+    env_file: .env
     environment:
       - WEBUI_PORT=8080
     volumes:
