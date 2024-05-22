@@ -17,8 +17,6 @@ export const run = async () => {
         prowlarrUrl: 'http://prowlarr:9696',
         apiKey: config.ApiKey,
       },
-    }, {
-      retry: true,
     })
   } catch (e) {
     const error: ApiError = e

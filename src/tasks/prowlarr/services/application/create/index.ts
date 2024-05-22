@@ -1,7 +1,7 @@
 import requests, { RequestOptions } from "../../../../../request";
+import { fieldsFromYaml } from "../../../../../request/formatters";
 import { read } from "../../../config";
 import { host } from "../../api";
-import { fieldsFromYaml } from "../../formatters";
 import { ApplicationResource } from "../types";
 import { CreateApplicationPayload } from "./types";
 

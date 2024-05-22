@@ -9,9 +9,11 @@ import { CreateDownloadClientPayload } from "./types";
 const defaults: Partial<CreateDownloadClientPayload> = {
   categories: [],
   enable: true,
+  removeCompletedDownloads: false,
+  removeFailedDownloads: false,
   fields: {
     useSSl: false,
-    category: "prowllar",
+    category: "sonarr",
     priority: 0,
     initialState: 0,
     sequentialOrder: false,

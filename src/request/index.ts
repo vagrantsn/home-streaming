@@ -45,7 +45,7 @@ const request = async <Response>(params: ServiceParams, options: RequestOptions)
         headers,
       });
 
-      const isJsonResponse = response.headers.get('Content-Type') === 'application/json'
+      const isJsonResponse = /application\/json/.test(response.headers.get('Content-Type'))
 
       let responseBody: Response
       if (isJsonResponse) {

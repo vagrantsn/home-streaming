@@ -1,5 +1,5 @@
 import prowlarr from './tasks/prowlarr'
-import qbittorrent from './tasks/qbittorrent'
+import transmission from './tasks/transmission'
 import sonarr from './tasks/sonarr'
 import radarr from './tasks/radarr'
 
@@ -9,7 +9,7 @@ import { TaskGroupsController, groupedTasks } from './task'
 
 const containers = {
   prowlarr,
-  qbittorrent,
+  transmission,
   sonarr,
   radarr,
 }
@@ -23,7 +23,8 @@ const run = async () => {
     { name: 'pre', tasks: [] },
     { name: 'start', tasks: [start] },
     { name: 'clean', tasks: [] },
-    { name: 'post', tasks: [] }
+    { name: 'applications', tasks: [] },
+    { name: 'downloaders', tasks: [] }
   ])
 
   subscribeTasks(tasks)

@@ -57,7 +57,7 @@ services:
     env_file: .env
     dns: 8.8.8.8
     depends_on:
-      - qbittorrent
+      - transmission
       - sonarr
       - radarr
     networks:
@@ -67,22 +67,22 @@ services:
     volumes:
       - ./containers/prowlarr:/config
 
-  qbittorrent:
-    container_name: qbittorrent
-    image: ghcr.io/linuxserver/qbittorrent:4.6.4-r1-ls326
-    dns: 8.8.8.8
+  transmission:
+    container_name: transmission
+    image: ghcr.io/linuxserver/transmission:4.0.5
     env_file: .env
     environment:
-      - WEBUI_PORT=8080
+      - USER=admin
+      - PASS=admin
     networks:
       - mediacenter
     ports:
-      - 6881:6881
-      - 6881:6881/udp
-      - 8080:8080
+      - 9091:9091
+      - 51413:51413
+      - 51413:51413/udp
     volumes:
-      - ./containers/qbittorrent:/config:rw
-      - ./media/downloads:/downloads:rw
+      - ./containers/transmission:/config
+      - ./media/downloads:/downloads
 
 networks:
   mediacenter:
