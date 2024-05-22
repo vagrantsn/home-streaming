@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "tsx scripts/index.ts"
+    "start": "tsx src/index.ts"
   },
   "dependencies": {
     "cli-color": "2.0.4",

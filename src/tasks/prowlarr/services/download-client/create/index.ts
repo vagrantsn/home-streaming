@@ -1,8 +1,9 @@
-import request from "../../request";
+import request from "../../../../../request";
 
-import { DownloadClientPayload, DownloadClientResource } from "../types";
+import { DownloadClientResource } from "../types";
+import { CreateDownloadClientPayload } from "./types";
 
-const defaults: Partial<DownloadClientPayload> = {
+const defaults: Partial<CreateDownloadClientPayload> = {
   categories: [],
   enable: true,
   fields: {
@@ -21,11 +22,11 @@ const defaults: Partial<DownloadClientPayload> = {
 };
 
 const getFieldsList = (
-  fields: DownloadClientPayload["fields"]
+  fields: CreateDownloadClientPayload["fields"]
 ): DownloadClientResource["fields"] =>
   Object.entries(fields).map(([name, value]) => ({ name, value }));
 
-export const create = (body: DownloadClientPayload) => {
+export const create = (body: CreateDownloadClientPayload) => {
   const defaultedBody: DownloadClientResource = {
     ...defaults,
     ...body,

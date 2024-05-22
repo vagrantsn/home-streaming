@@ -1,6 +1,5 @@
 import path from 'path'
-
-const root = path.resolve(__dirname, '../../')
+import { root } from '../../paths'
 
 const paths = {
   base: path.resolve(root, 'containers/prowlarr'),

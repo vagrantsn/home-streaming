@@ -1,5 +1,5 @@
-import { read } from '../yaml'
-import * as services from "./services";
+import { read } from '../../../../yaml'
+import * as services from "../../services";
 
 const removeAll = async () => {
   const downloadClients = await services.downloadClient.list()

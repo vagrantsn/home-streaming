@@ -1,9 +1,9 @@
 import fs from 'fs'
 import path from 'path'
 
-import paths from './paths'
+import paths from '../paths'
 
-export const preconfig = () => {
+export const run = () => {
   const configFileExists = fs.existsSync(path.resolve(paths.configFolder, 'qBittorrent.conf'))
 
   if (configFileExists) return;

@@ -1,6 +1,6 @@
 import fetch from "isomorphic-fetch";
 
-import { read } from "../config";
+import { read } from "../tasks/prowlarr/config";
 
 type ServiceParams = {
   path: string;
@@ -11,7 +11,7 @@ type ServiceParams = {
 const request = async <Response>(path: string | URL | Request, init: RequestInit) => {
   const response = await fetch(path, init);
 
-  const json: Promise<Response> = response.json()
+  const json: Promise<Response> = await response.json()
 
   if (!response.ok) {
     throw new Error(`${init.method} ${path} ${response.status} ${response.statusText} ${JSON.stringify(json)}`)

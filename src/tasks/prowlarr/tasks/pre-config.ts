@@ -1,8 +1,8 @@
 import fs from 'fs'
 
-import paths from './paths'
+import paths from '../paths'
 
-export const preconfig = () => {
+export const run = () => {
   const configFileExists = fs.existsSync(paths.config.file)
 
   if (configFileExists) return;

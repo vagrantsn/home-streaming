@@ -1,6 +1,6 @@
 import path from 'path'
 
-const root = path.resolve(__dirname, '../../')
+import { root } from '../../paths'
 
 const paths = {
   qbittorrent: path.resolve(root, 'containers/qbittorrent'),

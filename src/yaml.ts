@@ -2,7 +2,7 @@ import * as yaml from 'yaml'
 import path from 'path'
 import fs from 'fs'
 
-import { DownloadClientConfig } from './prowlarr/types/yaml'
+import { DownloadClientConfig } from './tasks/prowlarr/types/yaml'
 
 type YAMLConfig = {
   prowlarr: {
