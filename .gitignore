@@ -2,5 +2,5 @@
 .vscode/
 node_modules/
 
-qbittorrent/config/
-prowlarr/config/
+services/*/config/
+services/*/transcode/
