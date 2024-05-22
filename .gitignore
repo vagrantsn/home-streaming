@@ -2,5 +2,5 @@
 .vscode/
 node_modules/
 
-services/*/config/
-services/*/transcode/
+containers/*/config/
+containers/*/transcode/
