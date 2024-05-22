@@ -1,6 +1,5 @@
 import { Field } from "./endpoints/types/field";
 
 export const recordToFields = (
-  fields: Record<string, any>
-): Field[] =>
-  Object.entries(fields).map(([name, value]) => ({ name, value }));
+  fields: Partial<Record<keyof Field, Field[keyof Field]>>
+) => Object.entries(fields).map(([name, value]) => ({ name, value }));

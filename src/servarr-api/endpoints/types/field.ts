@@ -21,4 +21,7 @@ export type Field = Partial<{
   privacy: 'normal' | 'password' | 'apiKey' | 'userName'
   placeholder?: string
   isFloat: boolean
+  baseUrl: string;
+  prowlarrUrl: string;
+  apiKey: string;
 }>

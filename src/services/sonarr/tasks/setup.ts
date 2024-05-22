@@ -1,5 +1,4 @@
 import { recordToFields } from '@servarr-api/formatters'
-import { ApiError } from '@servarr-api/rest'
 
 import sonarr from '@src/services/sonarr/services'
 import prowlarr from '@src/services/prowlarr/services'

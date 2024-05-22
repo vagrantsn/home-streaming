@@ -26,7 +26,7 @@ export const sequence = (tasks: Task[]) => {
 }
 
 export const groupedTasks = (initialGroups: TasksGroup[]): TaskGroupsController => {
-  let groups = [...initialGroups]
+  const groups = [...initialGroups]
 
   const subscribe: TaskGroupsController['subscribe'] = (group, task) => {
     const index = groups.findIndex(({ name }) => name === group)

@@ -2,23 +2,23 @@ import fetch from "isomorphic-fetch";
 
 import { RetryConfig, retryPromise } from "./retry";
 
-export type RequestParams<Body = Record<string, any>> = Omit<
+export type RequestParams<Body = Record<string, unknown>> = Omit<
   RequestInit,
   "headers" | "body"
 > & {
   path?: string;
   body?: Body | (() => Body);
-  headers?: Record<string, any> | (() => Record<string, any>);
+  headers?: Record<string, unknown> | (() => Record<string, unknown>);
   host?: string;
   retry?: boolean | RetryConfig;
 };
 
-export class ApiError extends Error {
+export class ApiError<T extends Record<string, unknown> = Record<string, unknown>> extends Error {
   method: string;
   path: string;
   status: number;
   statusText: string;
-  responseBody: Record<string, any>;
+  responseBody: Record<string, unknown>;
 
   constructor(error: {
     method: string;
@@ -26,7 +26,7 @@ export class ApiError extends Error {
     statusText: string;
     path: string;
     message: string;
-    responseBody: Record<string, any>;
+    responseBody: T
   }) {
     super(error.message);
 
@@ -52,16 +52,16 @@ type ErrorResponse = {
   attemptedValue: string;
 }[];
 
-const isErrorResponse = (response: any): response is ErrorResponse =>
+const isErrorResponse = (response: unknown): response is ErrorResponse =>
   Array.isArray(response) &&
   response.length > 0 &&
   "errorMessage" in response[0];
 
-export type RequestHandler = <Response = any>(
+export type RequestHandler = <Response extends Record<string, unknown> = Record<string, unknown>>(
   params: RequestParams
 ) => Promise<Response>;
 
-const request: RequestHandler = <Response>({
+const request: RequestHandler = <Response extends Record<string, unknown>>({
   body,
   headers,
   path,
@@ -120,7 +120,7 @@ const request: RequestHandler = <Response>({
 
 const rest =
   (method: string) =>
-  <Response = any>(params: RequestParams) =>
+  <Response extends Record<string, unknown> = Record<string, unknown>>(params: RequestParams) =>
     request<Response>({
       ...params,
       method,

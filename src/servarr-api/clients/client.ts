@@ -5,9 +5,9 @@ type ClientOptions = {
   apiKey: () => string
 }
 
-const isRequestHandler = (value: any): value is RequestHandler => value instanceof Function
+const isRequestHandler = (value: unknown): value is RequestHandler => value instanceof Function
 
-const getHandler = <T extends Record<string, any>>(client: ClientOptions): ProxyHandler<T> => ({
+const getHandler = <T extends Record<string, unknown>>(client: ClientOptions): ProxyHandler<T> => ({
   get(target, prop, receiver) {
     if (typeof prop !== 'string') return Reflect.get(target, prop, receiver)
 
@@ -34,7 +34,7 @@ const getHandler = <T extends Record<string, any>>(client: ClientOptions): Proxy
   }
 })
 
-const buildClient = <T extends Record<string, any>>(services: T) => (options: ClientOptions) => {
+const buildClient = <T extends Record<string, unknown>>(services: T) => (options: ClientOptions) => {
   const handler = getHandler<T>(options)
 
   const proxiedServices = new Proxy(services, handler)

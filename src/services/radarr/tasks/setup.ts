@@ -1,4 +1,3 @@
-import { ApiError } from "@servarr-api/rest"
 import { recordToFields } from '@servarr-api/formatters'
 
 import { read } from "../config"
