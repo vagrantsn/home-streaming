@@ -54,6 +54,7 @@ export const groupedTasks = (initialGroups: TasksGroup[]): TaskGroupsController 
         }
 
         loader.fail(message)
+        process.exit(1)
       }
     }
   }
