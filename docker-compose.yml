@@ -51,7 +51,7 @@ services:
     container_name: prowlarr
     image: ghcr.io/linuxserver/prowlarr
     env_file: .env
-    dns: 8.8.8.8w
+    dns: 8.8.8.8
     ports:
       - 9696:9696
     volumes:
