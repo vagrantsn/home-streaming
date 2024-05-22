@@ -19,7 +19,7 @@ services:
     env_file: .env
     dns: 8.8.8.8
     volumes:
-      - ./radarr/config:/config
+      - ./radarr:/config
       - ./media:/media:rw
     ports:
       - 7878:7878
@@ -32,7 +32,7 @@ services:
     ports:
       - 8989:8989
     volumes:
-      - ./sonarr/config:/config:rw
+      - ./sonarr:/config:rw
       - ./media:/media:rw
 
   bazarr:
@@ -43,7 +43,7 @@ services:
     ports:
       - 6767:6767
     volumes:
-      - ./bazarr/config:/config:rw
+      - ./bazarr:/config:rw
       - ./media:/media:rw
 
   prowlarr:
