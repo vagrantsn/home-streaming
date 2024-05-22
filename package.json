@@ -1,8 +1,18 @@
 {
-  "name": "mediacenter",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "name": "home-streaming",
+  "version": "0.1.0",
+  "description": "Home streaming made simple with *Arrs services and Plex",
+  "keywords": [
+    "plex",
+    "sonarr",
+    "radarr",
+    "transmission",
+    "prowlarr",
+    "streaming",
+    "media"
+  ],
+  "author": "Vagner S <vagners.tambalo@gmail.com>",
+  "license": "MIT",
   "scripts": {
     "start": "tsx src/index.ts",
     "clean": "docker-compose down; rm -rf containers",
@@ -25,8 +35,5 @@
     "globals": "15.3.0",
     "tsx": "4.7.2",
     "typescript-eslint": "7.10.0"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC"
+  }
 }
