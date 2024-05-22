@@ -1,12 +1,13 @@
 import request, { RequestOptions } from "../../../../../request";
+import { read } from "../../../config";
 import { host } from "../../api";
 
 import { BulkDeletePayload } from "./types";
 
 export const remove = (body: BulkDeletePayload, options?: RequestOptions) => request.delete({
-  path: `applications/bulk`,
+  path: `${host}applications/bulk`,
   body,
-}, {
-  ...options,
-  host: host,
-})
+  headers: () => ({
+    'X-Api-Key': read().ApiKey,
+  }),
+}, options)

@@ -1,4 +1,5 @@
 import request, { RequestOptions } from "../../../../../request";
+import { read } from "../../../config";
 import { host } from "../../api";
 import { fieldsFromYaml } from "../../formatters";
 
@@ -33,10 +34,10 @@ export const create = (body: CreateDownloadClientPayload, options?: RequestOptio
   };
 
   return request.post({
-    path: `downloadclient`,
+    path: `${host}downloadclient`,
     body: defaultedBody,
-  }, {
-    ...options,
-    host: host,
-  });
+    headers: () => ({
+      'X-Api-Key': read().ApiKey,
+    }),
+  }, options);
 };

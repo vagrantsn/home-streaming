@@ -13,6 +13,8 @@ export const run = async () => {
         port: 8080,
         username: 'admin',
       }
+    }, {
+      retry: true,
     })
   } catch (e) {
     const error: ApiError = e

@@ -1,4 +1,5 @@
 import requests, { RequestOptions } from "../../../../../request";
+import { read } from "../../../config";
 import { host } from "../../api";
 import { fieldsFromYaml } from "../../formatters";
 import { ApplicationResource } from "../types";
@@ -34,10 +35,10 @@ export const create = (body: CreateApplicationPayload, options?: RequestOptions)
   }
 
   return requests.post({
-    path: `applications`,
+    path: `${host}applications`,
     body: defaultedBody,
-  }, {
-    ...options,
-    host: host,
-  })
+    headers: () => ({
+      'X-Api-Key': read().ApiKey,
+    }),
+  }, options)
 }

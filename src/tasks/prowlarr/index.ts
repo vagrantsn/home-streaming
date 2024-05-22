@@ -6,8 +6,8 @@ import * as start from './tasks/start'
 
 const subscribe = (group: TaskGroupsController) => {
   group.subscribe('pre', preconfig)
-  group.subscribe('clean', clean)
   group.subscribe('start', start)
+  group.subscribe('clean', clean)
 }
 
 export default subscribe

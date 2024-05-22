@@ -1,16 +1,15 @@
 import fetch from "isomorphic-fetch";
 
-import { read } from "../tasks/prowlarr/config";
+import { RetryConfig, retryPromise } from "./retry";
 
 type ServiceParams = {
   path: string;
-  body?: Record<string, unknown>;
-  headers?: Record<string, unknown>;
+  body?: Record<string, any> | (() => Record<string, any>);
+  headers?: Record<string, any> | (() => Record<string, any>);
 };
 
-export type RequestOptions = RequestInit & {
-  host?: string;
-  internal?: boolean;
+export type RequestOptions = Omit<RequestInit, 'headers' | 'body'> & {
+  retry?: boolean | RetryConfig;
 };
 
 export class ApiError extends Error {
@@ -22,64 +21,76 @@ export class ApiError extends Error {
   }
 }
 
-const request = async <Response>(path: string | URL | Request, options: RequestOptions) => {
-  const response = await fetch(`${options.host}${path}`, options);
-
-  const isJsonResponse = response.headers.get('Content-Type') === 'application/json'
-
-  let body: Response
-  if (isJsonResponse) {
-    body = Promise<Response> = await response.json()
-  }
-
-  if (!response.ok) {
-    throw new ApiError(
-      `${options.method} ${path} ${response.status} ${response.statusText} ${JSON.stringify(body)}`,
-      body
-    )
-  }
-
-  return body;
-};
-
-const defaultHeaders = () => {
-  const config = read()
-
-  return {
-    "X-Api-Key": config.ApiKey,
-    'Content-Type': 'application/json',
-  }
+const defaultHeaders = {
+  'Content-Type': 'application/json',
 }
 
+const request = async <Response>(params: ServiceParams, options: RequestOptions) => {
+  const isRetrying = Boolean(options.retry)
+
+  const getBody = typeof params.body === 'function' ? params.body : () => params.body
+  const getHeaders = typeof params.headers === 'function' ? params.headers : () => params.headers
+
+  const exec = async (): Promise<Response> => {
+    const body = JSON.stringify(getBody())
+    const headers = {
+      ...defaultHeaders,
+      ...getHeaders(),
+    }
+
+    try {
+      const response = await fetch(`${params.path}`, {
+        ...options,
+        body,
+        headers,
+      });
+
+      const isJsonResponse = response.headers.get('Content-Type') === 'application/json'
+
+      let responseBody: Response
+      if (isJsonResponse) {
+        responseBody = await response.json()
+      }
+
+      if (!response.ok) {
+        const errorMessage = {
+          path: `${options.method} ${params.path}`,
+          status: `${response.status} ${response.statusText}`,
+          body: getBody() || {},
+          headers: getHeaders() || {},
+          response: responseBody || {},
+        }
+
+        throw new ApiError(
+          JSON.stringify(errorMessage),
+          responseBody
+        )
+      }
+
+      return responseBody;
+    } catch (e) {
+      throw e
+    }
+  }
+
+  return isRetrying ? retryPromise(exec, typeof options.retry !== 'boolean' && options.retry) : exec()
+};
+
 const requests = {
- get: <Response = any>({ path, headers = {} }: ServiceParams, options?: RequestOptions) =>
-  request<Response>(path, {
+ get: <Response = any>(params: ServiceParams, options?: RequestOptions) =>
+  request<Response>(params, {
     ...options,
     method: "GET",
-    headers: {
-      ...defaultHeaders(),
-      ...headers,
-    },
   }),
- post: <Response = any>({ path, body = {}, headers = {} }: ServiceParams, options?: RequestOptions) =>
-  request<Response>(path, {
+ post: <Response = any>(params: ServiceParams, options?: RequestOptions) =>
+  request<Response>(params, {
     ...options,
     method: "POST",
-    body: JSON.stringify(body),
-    headers: {
-      ...defaultHeaders(),
-      ...headers,
-    },
   }),
- delete: <Response = any>({ path, body = {}, headers = {} }: ServiceParams, options?: RequestOptions) =>
-  request<Response>(path, {
+ delete: <Response = any>(params: ServiceParams, options?: RequestOptions) =>
+  request<Response>(params, {
     ...options,
     method: "DELETE",
-    body: JSON.stringify(body),
-    headers: {
-      ...defaultHeaders(),
-      ...headers,
-    },
   }),
 }
 

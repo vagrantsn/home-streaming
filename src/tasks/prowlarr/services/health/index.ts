@@ -1,9 +1,10 @@
 import request, { RequestOptions } from "../../../../request";
 import { host } from "../api";
+import { read } from '../../config'
 
 export const status = (options?: RequestOptions) => request.get({
-  path: `health`
-}, {
-  ...options,
-  host: host,
-})
+  path: `${host}health`,
+  headers: () => ({
+    'X-Api-Key': read().ApiKey,
+  }),
+}, options)
