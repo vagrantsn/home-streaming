@@ -1,9 +1,9 @@
-import prowlarr from './tasks/prowlarr'
-import transmission from './tasks/transmission'
-import sonarr from './tasks/sonarr'
-import radarr from './tasks/radarr'
+import prowlarr from './services/prowlarr'
+import transmission from './services/transmission'
+import sonarr from './services/sonarr'
+import radarr from './services/radarr'
 
-import * as start from './tasks/start'
+import * as start from './services/start'
 
 import { TaskGroupsController, groupedTasks } from './task'
 

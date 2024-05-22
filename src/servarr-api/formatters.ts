@@ -1,4 +1,4 @@
-import { Field } from "./services/types/field";
+import { Field } from "./endpoints/types/field";
 
 export const recordToFields = (
   fields: Record<string, any>

@@ -1,8 +1,8 @@
 import { recordToFields } from '@servarr-api/formatters'
 import { ApiError } from '@servarr-api/rest'
 
-import sonarr from '@tasks/sonarr/services'
-import prowlarr from '@tasks/prowlarr/services'
+import sonarr from '@src/services/sonarr/services'
+import prowlarr from '@src/services/prowlarr/services'
 import * as yaml from '@src/yaml'
 
 import { read } from '../config'

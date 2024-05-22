@@ -8,7 +8,7 @@
     "paths": {
       "@servarr-api": ["./src/servarr-api/index.ts"],
       "@servarr-api/*": ["./src/servarr-api/*"],
-      "@tasks/*": ["./src/tasks/*"],
+      "@services/*": ["./src/services/*"],
       "@src/*": ["./src/*"]
     }
   },

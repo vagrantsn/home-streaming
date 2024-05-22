@@ -1,4 +1,4 @@
-import { DownloadClientPayload } from "@servarr-api/services/downloadclient";
+import { DownloadClientPayload } from "@servarr-api/endpoints/downloadclient";
 import { recordToFields } from "@servarr-api/formatters";
 
 import prowlarr from "../../prowlarr/services";

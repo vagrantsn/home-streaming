@@ -1,4 +1,4 @@
-import { TaskGroupsController } from "../../task";
+import { TaskGroupsController } from "@src/task";
 
 import * as clean from './tasks/clean'
 import * as start from './tasks/start'

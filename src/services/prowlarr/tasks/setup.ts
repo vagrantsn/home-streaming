@@ -1,4 +1,4 @@
-import prowlarr from '@tasks/prowlarr/services'
+import prowlarr from '@src/services/prowlarr/services'
 
 import * as yaml from '@src/yaml'
 

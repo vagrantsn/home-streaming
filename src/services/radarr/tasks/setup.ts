@@ -2,8 +2,8 @@ import { ApiError } from "@servarr-api/rest"
 import { recordToFields } from '@servarr-api/formatters'
 
 import { read } from "../config"
-import prowlarr from '@tasks/prowlarr/services'
-import radarr from '@tasks/radarr/services'
+import prowlarr from '@src/services/prowlarr/services'
+import radarr from '@src/services/radarr/services'
 
 import * as yaml from '@src/yaml'
 

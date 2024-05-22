@@ -1,4 +1,4 @@
-import { Field } from "@servarr-api/services/types/field"
+import { Field } from "@servarr-api/endpoints/types/field"
 
 export type DownloadClient = {
   id: number
