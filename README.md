@@ -36,3 +36,26 @@ By default the services are available at:
 | Prowlarr     | http://localhost:9696  |
 | Transmission | http://localhost:9091  |
 | Plex         | http://localhost:32400 |
+
+### Troubleshooting
+
+- **I can't access the Plex Web UI**
+
+  If you are using Windows or MacOS, you will need to manually specify each port for the Plex container as Docker's Host network mode is only supported on Linux. The ports Plex uses can be found [here](https://support.plex.tv/articles/201543147-what-network-ports-do-i-need-to-allow-through-my-firewall/). After the changes, your plex container on `docker-compose.yml` file should be something similar to this:
+
+  ```diff
+  services:
+    plex:
+  -   network_mode: host
+  +   ports:
+  +     - 8324:8324
+  +     - 32400:32400
+  +     - 32469:32469
+  +     - 1900:1900/udp
+  +     - 32410:32410/udp
+  +     - 32412:32412/udp
+  +     - 32413:32413/udp
+  +     - 32414:32414/udp
+  ```
+
+  But be aware this may lead to some issues when trying to connect to Plex from other devices like your Smart TV. Host network is the recommended mode.
