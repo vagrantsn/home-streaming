@@ -13,10 +13,10 @@ services:
       - VERSION=latest
 
   radarr:
+    image: ghcr.io/linuxserver/radarr:latest
     container_name: radarr
-    image: ghcr.io/linuxserver/radarr:5.4.6.8723-ls215
+    restart: always
     env_file: .env
-    dns: 8.8.8.8
     ports:
       - 7878:7878
     volumes:
@@ -24,10 +24,10 @@ services:
       - ./media:/media:rw
 
   sonarr:
+    image: ghcr.io/linuxserver/sonarr:latest
     container_name: sonarr
-    image: ghcr.io/linuxserver/sonarr:4.0.4.1491-ls236
+    restart: always
     env_file: .env
-    dns: 8.8.8.8
     ports:
       - 8989:8989
     volumes:
@@ -35,10 +35,10 @@ services:
       - ./media:/media:rw
 
   prowlarr:
+    image: ghcr.io/linuxserver/prowlarr:latest
     container_name: prowlarr
-    image: ghcr.io/linuxserver/prowlarr:1.16.2.4435-ls66
+    restart: always
     env_file: .env
-    dns: 8.8.8.8
     depends_on:
       - transmission
       - sonarr
@@ -49,8 +49,9 @@ services:
       - ./containers/prowlarr:/config
 
   transmission:
+    image: ghcr.io/linuxserver/transmission:latest
     container_name: transmission
-    image: ghcr.io/linuxserver/transmission:4.0.5
+    restart: always
     env_file: .env
     environment:
       - USER=admin
