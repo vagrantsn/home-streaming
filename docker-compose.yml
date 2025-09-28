@@ -1,16 +1,15 @@
 services:
-  plex:
-    container_name: plex
-    image: ghcr.io/linuxserver/plex:1.40.2.8395-c67dce28e-ls213
+  jellyfin:
+    image: lscr.io/linuxserver/jellyfin:latest
+    container_name: jellyfin
+    restart: always
     env_file: .env
-    dns: 8.8.8.8
-    network_mode: host
+    ports:
+      - 8096:8096
     volumes:
-      - ./containers/plex/config:/config:rw
-      - ./containers/plex/transcode:/transcode:rw
-      - ./media:/media:rw
-    environment:
-      - VERSION=latest
+      - ./containers/jellyfin/config:/config
+      - ./media/tvshows:/data/tvshows
+      - ./media/movies:/data/movies
 
   radarr:
     image: ghcr.io/linuxserver/radarr:latest

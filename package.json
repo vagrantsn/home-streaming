@@ -1,9 +1,9 @@
 {
   "name": "home-streaming",
-  "version": "0.1.0",
-  "description": "Home streaming made simple with *Arrs services and Plex",
+  "version": "0.2.0",
+  "description": "Home streaming made simple with *Arrs services and Jellyfin",
   "keywords": [
-    "plex",
+    "jellyfin",
     "sonarr",
     "radarr",
     "transmission",
