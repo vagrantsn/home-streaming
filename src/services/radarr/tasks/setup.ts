@@ -39,5 +39,5 @@ export const run = async () => {
     },
   })
 
-  await radarr.rootFolder.create({ body: { path: '/media/tvshows/' } })
+  await radarr.rootFolder.create({ body: { path: '/media/movies/' } })
 }
