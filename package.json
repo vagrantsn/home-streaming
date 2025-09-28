@@ -14,7 +14,7 @@
   "author": "Vagner S <vagners.tambalo@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "start": "tsx src/index.ts",
+    "start": "./setup.sh; tsx src/index.ts",
     "clean": "docker-compose down; rm -rf containers",
     "lint": "eslint src/"
   },
